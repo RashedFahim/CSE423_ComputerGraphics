@@ -24,31 +24,32 @@ def draw_points(x, y, s, r=1.0, g=1.0, b=1.0):
 
 def mouseListener(button, state, x, y):
     global create_pixels
-
-    if button == GLUT_RIGHT_BUTTON:
-        if state == GLUT_DOWN:
-        
-            x1 = (x / W_Width) * 2 - 1   
-            y1 = -((y / W_Height) * 2 - 1)  
-
-            dx = random.choice([-0.001,0.001])
-            dy = random.choice([-0.001,0.001])
-
-            r = random.random()
-            g = random.random()
-            b = random.random()
-
+    global freeze
+    if freeze==False:
+        if button == GLUT_RIGHT_BUTTON:
+            if state == GLUT_DOWN:
             
-            create_pixels.append([x1, y1,dx,dy, r, g, b])
-            print(f"Created pixel at ({x1:.2f}, {y1:.2f}) with color ({r:.2f}, {g:.2f}, {b:.2f})")
+                x1 = (x / W_Width) * 2 - 1   
+                y1 = -((y / W_Height) * 2 - 1)  
 
-    if button == GLUT_LEFT_BUTTON:
-        if state == GLUT_DOWN: 
-            glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
-            glClearColor(0,0,0,0)
-            glutSwapBuffers()
-            time.sleep(0.1)
-            print('Blinked!!')
+                dx = random.choice([-0.001,0.001])
+                dy = random.choice([-0.001,0.001])
+
+                r = random.random()
+                g = random.random()
+                b = random.random()
+
+                
+                create_pixels.append([x1, y1,dx,dy, r, g, b])
+                print(f"Created pixel at ({x1:.2f}, {y1:.2f}) with color ({r:.2f}, {g:.2f}, {b:.2f})")
+
+        if button == GLUT_LEFT_BUTTON:
+            if state == GLUT_DOWN: 
+                glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+                glClearColor(0,0,0,0)
+                glutSwapBuffers()
+                time.sleep(0.1)
+                print('Blinked!!')
 
     glutPostRedisplay()
 
@@ -74,14 +75,19 @@ def keyboardListener(key,x,y):
 
 def specialKeyListener(key,x,y):
     global speed
-    if speed<10:
-        if key == GLUT_KEY_UP:
-            speed += 0.3
-            print('Speed Up!!')
-    if speed>1:
-        if key == GLUT_KEY_DOWN:
-            speed -= 0.3
-            print('Speed Down!!')
+    global freeze
+
+    if freeze==False:
+        if speed<10:
+            if key == GLUT_KEY_UP:
+                speed += 0.3
+                print('Speed Up!!')
+        if speed>1:
+            if key == GLUT_KEY_DOWN:
+                speed -= 0.3
+                print('Speed Down!!')
+    else:
+        pass
     glutPostRedisplay()
 
 
