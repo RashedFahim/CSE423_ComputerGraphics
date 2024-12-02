@@ -28,7 +28,7 @@ def mouseListener(button, state, x, y):
     if button == GLUT_RIGHT_BUTTON:
         if state == GLUT_DOWN:
         
-            x1 = (x / W_Width) * 2 - 1   #Normalized Device Coordinates(NDC)
+            x1 = (x / W_Width) * 2 - 1   
             y1 = -((y / W_Height) * 2 - 1)  
 
             dx = random.choice([-0.001,0.001])
