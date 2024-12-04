@@ -29,11 +29,11 @@ def mouseListener(button, state, x, y):
         if button == GLUT_RIGHT_BUTTON:
             if state == GLUT_DOWN:
             
-                x1 = (x / W_Width) * 2 - 1   
-                y1 = -((y / W_Height) * 2 - 1)  
+                x1 = x   
+                y1 =  W_Height-y 
 
-                dx = random.choice([-0.001,0.001])
-                dy = random.choice([-0.001,0.001])
+                dx = random.choice([-1,1])
+                dy = random.choice([-1,1])
 
                 r = random.random()
                 g = random.random()
@@ -101,9 +101,9 @@ def update_points():
             pixel[0] += pixel[2]*speed
             pixel[1] += pixel[3]*speed
 
-            if pixel[0]>=1 or pixel[0]<=-1:
+            if pixel[0]>=W_Height or pixel[0]<=0:
                 pixel[2] *= -1
-            if pixel[1]>=1 or pixel[1]<=-1:
+            if pixel[1]>=W_Height or pixel[1]<=0:
                 pixel[3] *=-1
         else:
             pass
@@ -129,7 +129,7 @@ def init():
     glClearColor(0, 0, 0, 0)
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
-    glOrtho(-1, 1, -1, 1, -1, 1) 
+    glOrtho(0, W_Height, 0, W_Width, -1, 1) 
 
 def animation():
     update_points()
